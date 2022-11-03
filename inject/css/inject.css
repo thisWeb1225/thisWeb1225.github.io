@@ -1,0 +1,8 @@
+:root {
+  --global-bg: #f8f8f8;
+  --global-font-size: 15px;
+}
+
+[data-theme='dark'] {
+  --global-bg: #23232d;
+}
