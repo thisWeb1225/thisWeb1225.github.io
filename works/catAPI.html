@@ -4,9 +4,122 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>cat API | thisWeb</title>
+  <title>Document</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --white: #fdfdfd;
+      --bg: #23232d;
+      --color1: #2ecce0;
+      --color2: #FF6A71;
+      --color3: #fccf31;
+      --color4: #FA7C49;
+      --color5: #92fe9d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'poppins', 'Noto Sans TC', sans-serif;
+      font-weight: 200;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%);
+      display: grid;
+      place-content: center;
+      color: white;
+    }
+
+    .cat {
+      display: grid;
+      gap: 32px;
+      text-align: center;
+      border: 1px solid white;
+      padding: 32px 64px;
+      width: clamp(200px, 40vw, 600px);
+      border-radius: 5px;
+    }
+
+
+    .cat__img  {
+      width:100%;
+      object-fit: contain;
+    }
+
+    .cat__btn {
+      justify-self: center;
+      width: 50%;
+      height: 32px;
+      border: 1px solid white;
+      border-radius: 5px;
+      outline: none;
+      background: transparent;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .cat__btn:hover {
+      background: #FA7C49;
+    }
+
+
+    
+
+  </style>
 </head>
 <body>
-  hello
+
+<main class="cat">
+  <h3 class="cat__title">Meow!!!</h3>
+  <img class="cat__img" scr="" alt="meow~">  
+  </img>
+  <button class="cat__btn">ReMeow~</button>
+</main>
+
+
+<script>
+  const imgEl = document.querySelector('.cat__img');
+  const btn = document.querySelector('.cat__btn');
+
+  const apikey = 'live_JoIb7cY1hPvy2q4hl3nL5FVaIQXddMN4RivQUP4COD2ljGQz9giFjC75roCszkGd'
+  const APIurl = `https://api.thecatapi.com/v1/images/search?${apikey}`;
+
+  function ajax_get(url) {
+    let data;
+    const xhr = new XMLHttpRequest();
+    xhr.onload = () => {
+      if(xhr.status === 200) {
+        // console.log(xhr.responseText);
+        try {
+          data = JSON.parse(xhr.responseText);
+        } catch (err) {
+          console.log(err.message + ' in ' + xhr.responseText);
+          return;
+        }
+        const catData = data[0];
+        imgEl.src = catData.url
+      }
+    };
+
+    xhr.open('GET', url, true)
+    xhr.send()
+  }
+
+  ajax_get(APIurl)
+
+  btn.addEventListener('click', () => {
+    ajax_get(APIurl)
+  })
+
+</script>
+
 </body>
 </html>
